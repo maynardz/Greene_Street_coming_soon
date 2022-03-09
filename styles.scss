@@ -1,0 +1,563 @@
+// FONTS
+@import url("https://fonts.googleapis.com/css?family=Lora:400,400i,700");
+
+@font-face {
+  font-family: domainRegular;
+  src: url("./assets/brand_assets/Fonts/Domaine/DomaineText-Regular.otf");
+}
+
+@font-face {
+  font-family: untitledSans_medium;
+  src: url("./assets/brand_assets/Fonts/untitled_sans/UntitledSans-Medium.otf");
+}
+
+@font-face {
+  font-family: utitledSans_medium_italic;
+  src: url("./assets/brand_assets/Fonts/untitled_sans/UntitledSans-MediumItalic.otf");
+}
+
+@font-face {
+  font-family: untitledSans_regular;
+  src: url("./assets/brand_assets/Fonts/untitled_sans/UntitledSans-Regular.otf");
+}
+
+@font-face {
+  font-family: untitledSans_regular_italic;
+  src: url("./assets/brand_assets/Fonts/untitled_sans/UntitledSans-RegularItalic.otf");
+}
+
+@mixin desktop-landscape {
+  @media screen and (min-width: 1920px) {
+    @content;
+  }
+}
+
+@mixin desktop-portrait {
+  @media screen and (min-height: 1080px) {
+    @content;
+  }
+}
+
+@mixin sp-landscape {
+  @media screen and (max-width: 926px) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin sp-portrait {
+  @media screen and (max-width: 428px) and (orientation: portrait) {
+    @content;
+  }
+}
+
+// BODY
+body {
+  background-color: #ffffff;
+}
+
+.splash {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  margin: 0;
+  font-family: domainRegular;
+
+  @include sp-portrait {
+    min-height: 60vh;
+  }
+
+  @include sp-landscape {
+    min-height: 100vh;
+  }
+}
+
+.splash img {
+  content: url('./assets/brand_assets/Logos/RGB/Green/PNG/GreeneStreet_Logo_RGB_Green.png');
+  height: 350px;
+  width: auto;
+
+  @include sp-portrait {
+    content: url('./assets/brand_assets/Logos/RGB/Green/PNG/GreeneStreet_Symbol_RGB_Green.png');
+    height: auto;
+    width: 125px;
+  }
+
+  @include sp-landscape {
+    content: url('./assets/brand_assets/Logos/RGB/Green/PNG/GreeneStreet_WordmarkTagline_RGB_Green.png');
+    height: 140px;
+    width: auto;
+    margin-top: 2em;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.main {
+  color: #425030
+}
+
+.main h1 {
+  text-align: center;
+  font-family: untitledSans_medium_italic;
+  font-size: 55px;
+  letter-spacing: 0.2rem;
+
+    @include sp-portrait {
+      font-size: 47px;
+      letter-spacing: 0.1rem;
+    }
+
+    @include sp-landscape {
+      font-size: 47px;
+      letter-spacing: 0.5rem;
+    }
+}
+
+.main p {
+  text-align: center;
+  font-family: untitledSans_regular_italic;
+  letter-spacing: 0.1rem;
+
+  @include sp-portrait {
+    letter-spacing: 0;
+  }
+
+  @include sp-landscape {
+    // letter-spacing: 0.15rem;
+    margin-right: .5em;
+  }
+}
+
+.contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.contact button {
+  margin-top: 1em;
+}
+
+.contact input {
+  border: 1.5px solid #425030;
+  border-radius: 5px;
+  height: 45px;
+  width: 425px;
+  text-indent: 3px;
+  outline: none;
+  // font-family: untitledSans_regular;
+
+  @include sp-portrait {
+    width: 355px;
+  }
+
+  @include sp-landscape {
+    width: 425px;
+  }
+}
+
+.contact input[type=text]:focus {
+  border: 2px solid #ffff78;
+}
+
+.subButton {
+  text-align: center;
+}
+
+.subButton button {
+  border: none;
+  background-color: #ffff78;
+  color: #425030;
+  height: 50px;
+  width: 425px;
+  border-radius: 5px;
+  font-family: untitledSans_medium;
+  font-size: 16px;
+
+  @include sp-portrait {
+    width: 355px;
+  }
+
+  @include sp-landscape {
+    width: 425px;
+  }
+}
+
+#burger-toggle {
+  position: absolute;
+  appearance: none;
+  opacity: 0;
+
+  &:checked {
+    & ~ .menu {
+      opacity: 1;
+      visibility: visible;
+
+      .menu-nav-link span div,
+      img,
+      .title p {
+        transform: translateY(0);
+        transition: 1.2s 0.1s cubic-bezier(0.35, 0, 0.07, 1);
+      }
+
+      .image-link {
+        @for $i from 1 through 4 {
+          &:nth-child(#{$i}) img {
+            transition-delay: 0.1s + 0.08s * $i;
+          }
+        }
+      }
+    }
+
+    & ~ .burger-menu {
+      .line {
+        &::after {
+          transform: translateX(0);
+        }
+
+        &:nth-child(1) {
+          transform: translateY(calc(var(--burger-menu-radius) / 5))
+            rotate(45deg);
+        }
+
+        &:nth-child(2) {
+          transform: scaleX(0);
+        }
+
+        &:nth-child(3) {
+          transform: translateY(calc(var(--burger-menu-radius) / -5))
+            rotate(-45deg);
+        }
+      }
+    }
+  }
+}
+
+.burger-menu {
+  --burger-menu-radius: 4em;
+
+  position: fixed;
+  top: 5vh;
+  left: 5vw;
+  z-index: 100;
+  display: block;
+  width: var(--burger-menu-radius);
+  height: var(--burger-menu-radius);
+  outline: none;
+  cursor: pointer;
+
+  .line {
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: #a0a797;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
+
+    &:nth-child(1) {
+      top: 30%;
+    }
+
+    &:nth-child(2) {
+      top: 50%;
+    }
+
+    &:nth-child(3) {
+      top: 70%;
+    }
+
+    &::after {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #425030;
+      transform: translateX(-100%);
+      transition: 0.25s;
+    }
+
+    @for $i from 2 through 3 {
+      &:nth-child(#{$i})::after {
+        transition-delay: 0.1s * ($i - 1);
+      }
+    }
+  }
+
+  &:hover {
+    .line::after {
+      transform: translateX(0);
+    }
+  }
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e1d5c5;
+  opacity: 0;
+  overflow-x: hidden;
+  visibility: hidden;
+  transition: 0.3s;
+
+  @include sp-portrait {
+    // display: block;
+  }
+
+  &-nav {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style-type: none;
+
+    @include sp-portrait {
+      flex-direction: column;
+    }
+
+    &-item {
+      flex: 1;
+    }
+
+    &-link {
+      position: relative;
+      display: inline-flex;
+      font-size: 2rem;
+      color: #425030;
+      text-decoration: none;
+      margin: 1em;
+
+      span {
+        overflow: hidden;
+
+        div {
+          transform: translateY(102%);
+        }
+      }
+
+      &::after {
+        position: absolute;
+        content: "";
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: #ffff78;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.5s;
+      }
+
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+
+  .menu-nav-link:hover {
+    color: #111111;
+  }
+
+  // .gallery {
+  //   margin-top: 60px;
+  //   text-align: center;
+  // }
+
+  // .title {
+  //   font-size: 24px;
+  //   color: #425030;
+  //   overflow: hidden;
+
+  //   p {
+  //     font-family: untitledSans_regular;
+  //     font-size: 12px;
+  //     letter-spacing: 2px;
+  //     text-transform: uppercase;
+  //     transform: translateY(102%);
+  //   }
+  // }
+
+  // .images {
+  //   margin-top: 36px;
+  //   display: flex;
+  //   flex-wrap: wrap;
+
+  //   @include sp-portrait {
+  //     justify-content: center;
+  //   }
+
+  //   .image-link {
+  //     width: 15vw;
+  //     margin: 0 12px;
+  //     overflow: hidden;
+
+  //     @include sp-portrait {
+  //       width: 40vw;
+  //       margin: 0 12px 12px 0;
+  //     }
+
+  //     .image {
+  //       position: relative;
+  //       transition: 0.6s;
+
+  //       &::before {
+  //         position: absolute;
+  //         content: attr(data-label);
+  //         font-family: untitledSans_regular;
+  //         top: 0;
+  //         left: 0;
+  //         z-index: 1;
+  //         display: flex;
+  //         justify-content: center;
+  //         align-items: center;
+  //         width: 100%;
+  //         height: 100%;
+  //         color: white;
+  //         background: rgba(0, 0, 0, 0.6);
+  //         opacity: 0;
+  //         transition: 0.4s;
+  //       }
+  //     }
+
+  //     &:hover .image {
+  //       transform: scale(1.2);
+
+  //       &::before {
+  //         opacity: 1;
+  //       }
+  //     }
+  //   }
+
+  //   img {
+  //     height: 75px;
+  //     transform: translateY(102%);
+  //   }
+  // }
+}
+
+.menu-inner {
+  transform: translate(0, 0%);
+
+  @include sp-portrait {
+    transform: translate(0, 0);
+  }
+
+  @include sp-landscape {
+    transform: translate(0, 10%);
+    // background-color: #111111;
+  }
+}
+
+/* js related */
+// #wrapper {
+//   @include sp-portrait {
+//     display: block;
+//   }
+
+//   @include sp-landscape {
+//     display: block
+//   }
+// }
+
+#overButton {
+  font-family: domainRegular;
+  font-size: 2rem;
+  width: 275px;
+  margin: .5em;
+  border: 3px solid #ffffff;
+  color: #ffffff;
+  
+  @include sp-portrait {
+    width: 200px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  @include sp-landscape {
+    width: 200px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    border: 3px solid #ffff78;
+    color: #ffff78;
+  }
+}
+
+#underButton {
+  font-family: domainRegular;
+  font-size: 2rem;
+  width: 275px;
+  margin: .5em;
+  border: 3px solid #ffffff;
+  color: #ffffff;
+
+  @include sp-portrait {
+    width: 200px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  @include sp-landscape {
+    width: 200px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  &:hover {
+    border: 3px solid #ffff78;
+    color: #ffff78;
+  }
+}
+
+#htext {
+  font-size: 3.5rem;
+  letter-spacing: .25rem;
+  margin-bottom: 1em;
+
+  @include sp-portrait {
+    font-size: 2rem;
+    margin-bottom: 2em;
+  }
+
+  @include sp-landscape {
+    font-size: 2rem;
+    margin-bottom: .5em;
+  }
+}
+
+#vLogo {
+  height: 450px;
+  width: auto;
+  content: url('./assets/brand_assets/Logos/RGB/White/PNG/GreeneStreet_Logo_RGB_White.png');
+  margin-bottom: 5em;
+
+  @include sp-portrait {
+    height: 125px;
+    content: url('./assets/brand_assets/Logos/RGB/White/PNG/GreeneStreet_WordmarkStacked_RGB_White.png');
+  }
+
+  @include sp-landscape {
+    height: 110px;
+    margin-bottom: 1.5em;
+    content: url('./assets/brand_assets/Logos/RGB/White/PNG/GreeneStreet_WordmarkTagline_RGB_White.png');
+  }
+}
